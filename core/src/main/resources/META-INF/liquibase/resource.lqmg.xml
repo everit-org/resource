@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lqmg xmlns="http://everit.org/lqmg" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" defaultPackage="org.everit.osgi.resource.schema.qdsl">
+  <namingRules>
+    <classNameRule>
+     <entity>res_resource</entity>
+     <class>Resource</class>
+    </classNameRule>
+  </namingRules>
+</lqmg>

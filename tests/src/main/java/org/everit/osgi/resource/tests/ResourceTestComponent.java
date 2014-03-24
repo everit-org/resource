@@ -30,7 +30,7 @@ import org.apache.felix.scr.annotations.ReferencePolicy;
 import org.apache.felix.scr.annotations.Service;
 import org.everit.osgi.dev.testrunner.TestDuringDevelopment;
 import org.everit.osgi.resource.api.ResourceService;
-import org.everit.osgi.resource.schema.QResource;
+import org.everit.osgi.resource.schema.qdsl.QResource;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -51,23 +51,24 @@ public class ResourceTestComponent {
      */
     private static final Long FAKE_ID = 2000L;
     /**
-     * {@link ExpandedSQLTemplates}.
-     */
-    private static final SQLTemplates SQL_TEMPLATES = new ExpandedSQLTemplates();
-    /**
      * Zero number.
      */
     private static final long ZERO = 0;
+    /**
+     * {@link DataSource}.
+     */
+    @Reference
+    private DataSource dataSource;
     /**
      * {@link ResourceService}.
      */
     @Reference(policy = ReferencePolicy.STATIC)
     private ResourceService resourceService;
     /**
-     * {@link DataSource}.
+     * {@link ExpandedSQLTemplates}.
      */
     @Reference
-    private DataSource dataSource;
+    private SQLTemplates sqlTemplates;
 
     public void bindDataSource(final DataSource dataSource) {
         this.dataSource = dataSource;
@@ -86,7 +87,7 @@ public class ResourceTestComponent {
         Long count = 0L;
         try (Connection connection = dataSource.getConnection()) {
             QResource qResource = new QResource("qResource");
-            SQLQuery countClause = new SQLQuery(connection, SQL_TEMPLATES);
+            SQLQuery countClause = new SQLQuery(connection, sqlTemplates);
             count = countClause.from(qResource).count();
         } catch (SQLException e) {
             e.printStackTrace();

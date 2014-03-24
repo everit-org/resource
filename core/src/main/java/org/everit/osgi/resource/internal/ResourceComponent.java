@@ -27,9 +27,8 @@ import org.apache.felix.scr.annotations.Properties;
 import org.apache.felix.scr.annotations.Property;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
-import org.everit.osgi.resource.api.ExpandedSQLTemplates;
 import org.everit.osgi.resource.api.ResourceService;
-import org.everit.osgi.resource.schema.QResource;
+import org.everit.osgi.resource.schema.qdsl.QResource;
 
 import com.mysema.query.sql.SQLTemplates;
 import com.mysema.query.sql.dml.SQLDeleteClause;
@@ -40,18 +39,21 @@ import com.mysema.query.sql.dml.SQLInsertClause;
  */
 @Component(name = "org.everit.osgi.resource.ResourceComponent", metatype = true, configurationFactory = true,
         policy = ConfigurationPolicy.REQUIRE)
-@Properties({ @Property(name = "dataSource.target") })
+@Properties({ @Property(name = "dataSource.target"), @Property(name = "sqlTemplates.target") })
 @Service
 public class ResourceComponent implements ResourceService {
-    /**
-     * {@link ExpandedSQLTemplates} instance for queries.
-     */
-    public static final SQLTemplates SQL_TEMPLATES = new ExpandedSQLTemplates();
+
     /**
      * {@link DataSource}.
      */
     @Reference
     private DataSource dataSource;
+
+    /**
+     * {@link SQLTemplates}.
+     */
+    @Reference
+    private SQLTemplates sqlTemplates;
 
     public void bindDataSource(final DataSource dataSource) {
         this.dataSource = dataSource;
@@ -62,8 +64,8 @@ public class ResourceComponent implements ResourceService {
         Long id = null;
         try (Connection connection = dataSource.getConnection()) {
             QResource qResource = new QResource("qResource");
-            SQLInsertClause insertClause = new SQLInsertClause(connection, SQL_TEMPLATES, qResource);
-            id = insertClause.executeWithKey(qResource.id);
+            SQLInsertClause insertClause = new SQLInsertClause(connection, sqlTemplates, qResource);
+            id = insertClause.executeWithKey(qResource.resourceId);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -75,8 +77,8 @@ public class ResourceComponent implements ResourceService {
         long deletedRecords = 0;
         try (Connection connection = dataSource.getConnection()) {
             QResource qResource = new QResource("qResource");
-            SQLDeleteClause deleteClause = new SQLDeleteClause(connection, SQL_TEMPLATES, qResource);
-            deletedRecords = deleteClause.where(qResource.id.eq(resourceId)).execute();
+            SQLDeleteClause deleteClause = new SQLDeleteClause(connection, sqlTemplates, qResource);
+            deletedRecords = deleteClause.where(qResource.resourceId.eq(resourceId)).execute();
         } catch (SQLException e) {
             e.printStackTrace();
         }

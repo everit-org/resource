@@ -25,10 +25,9 @@
         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
     <changeSet id="1" author="everit">
-    	<sql dbms="h2">CREATE SCHEMA IF NOT EXISTS "org.everit.osgi.resource.schema"</sql> 
     	
-        <createTable tableName="resource" schemaName="org.everit.osgi.resource.schema" >
-            <column name="id" type="bigint" autoIncrement="true">
+        <createTable tableName="res_resource">
+            <column name="resource_id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
         </createTable>

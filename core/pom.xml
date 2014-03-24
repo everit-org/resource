@@ -96,7 +96,7 @@
 							${project.artifactId}.schema
 						</Export-Package>
 						<Provide-Capability>
-							liquibase.schema;name=org.everit.osgi.resource.schema;resource=/META-INF/osgi.resource.liquibase.xml
+							liquibase.schema;name=org.everit.osgi.resource.schema;resource=/META-INF/liquibase/resource.liquibase.xml;lqmg.config.resource=/META-INF/liquibase/resource.lqmg.xml
 						</Provide-Capability>
 					</instructions>
 				</configuration>
