@@ -66,7 +66,7 @@ public class ConfigurationInitComponent {
 
             Dictionary<String, Object> migratedDataSourceProps = new Hashtable<String, Object>();
             migratedDataSourceProps.put("embeddedDataSource.target", "(service.pid=" + pooledDataSourcePid + ")");
-            migratedDataSourceProps.put("schemaExpression", "org.everit.osgi.resource.schema");
+            migratedDataSourceProps.put("schemaExpression", "org.everit.osgi.resource");
             String liquiBaseDataSorucePid = getOrCreateConfiguration(
                     "org.everit.osgi.liquibase.datasource.LiquibaseDataSourceComponent", migratedDataSourceProps);
 

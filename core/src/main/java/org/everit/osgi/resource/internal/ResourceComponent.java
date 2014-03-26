@@ -27,6 +27,8 @@ import org.apache.felix.scr.annotations.Properties;
 import org.apache.felix.scr.annotations.Property;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
+import org.everit.osgi.resource.api.ResourceCreationException;
+import org.everit.osgi.resource.api.ResourceDeletionException;
 import org.everit.osgi.resource.api.ResourceService;
 import org.everit.osgi.resource.schema.qdsl.QResource;
 
@@ -67,7 +69,7 @@ public class ResourceComponent implements ResourceService {
             SQLInsertClause insertClause = new SQLInsertClause(connection, sqlTemplates, qResource);
             id = insertClause.executeWithKey(qResource.resourceId);
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new ResourceCreationException("Could not create resource", e);
         }
         return id;
     }
@@ -80,7 +82,7 @@ public class ResourceComponent implements ResourceService {
             SQLDeleteClause deleteClause = new SQLDeleteClause(connection, sqlTemplates, qResource);
             deletedRecords = deleteClause.where(qResource.resourceId.eq(resourceId)).execute();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new ResourceDeletionException("Could not delete resource with id " + resourceId, e);
         }
         return deletedRecords;
     }
