@@ -24,6 +24,7 @@ import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
+import org.everit.osgi.querydsl.templates.SQLTemplatesConstants;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.Constants;
 import org.osgi.framework.InvalidSyntaxException;
@@ -57,6 +58,12 @@ public class ConfigurationInitComponent {
                     "org.everit.osgi.jdbc.commons.dbcp.ManagedDataSourceComponent",
                     pooledDataSourceProps);
 
+            Dictionary<String, Object> sqlTemplatesProps = new Hashtable<String, Object>();
+            sqlTemplatesProps.put("dataSource.target", "(service.pid=" + pooledDataSourcePid + ")");
+            sqlTemplatesProps.put(SQLTemplatesConstants.PROP_QUOTE, true);
+            String sqlTemplatesPid = getOrCreateConfiguration(SQLTemplatesConstants.COMPONENT_NAME_AUTO_SQL_TEMPLATES,
+                    sqlTemplatesProps);
+
             Dictionary<String, Object> migratedDataSourceProps = new Hashtable<String, Object>();
             migratedDataSourceProps.put("embeddedDataSource.target", "(service.pid=" + pooledDataSourcePid + ")");
             migratedDataSourceProps.put("schemaExpression", "org.everit.osgi.resource.schema");
@@ -67,6 +74,8 @@ public class ConfigurationInitComponent {
             resourceProps.put("dataSource.target", "(" + Constants.SERVICE_PID + "=" + liquiBaseDataSorucePid + ")");
             getOrCreateConfiguration("org.everit.osgi.resource.ResourceComponent", resourceProps);
 
+            Dictionary<String, Object> resourceTestProps = new Hashtable<String, Object>();
+            resourceTestProps.put("dataSource.target", liquiBaseDataSorucePid);
             getOrCreateConfiguration("ResourceTest", new Hashtable<String, Object>());
 
         } catch (IOException e) {
