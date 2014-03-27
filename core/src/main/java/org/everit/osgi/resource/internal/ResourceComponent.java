@@ -27,6 +27,7 @@ import org.apache.felix.scr.annotations.Properties;
 import org.apache.felix.scr.annotations.Property;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
+import org.everit.osgi.resource.api.ResourceConstants;
 import org.everit.osgi.resource.api.ResourceCreationException;
 import org.everit.osgi.resource.api.ResourceDeletionException;
 import org.everit.osgi.resource.api.ResourceService;
@@ -39,9 +40,10 @@ import com.mysema.query.sql.dml.SQLInsertClause;
 /**
  * Implementation for {@link ResourceService}.
  */
-@Component(name = "org.everit.osgi.resource.ResourceComponent", metatype = true, configurationFactory = true,
+@Component(name = ResourceConstants.COMPONENT_NAME_RESOURCE, metatype = true, configurationFactory = true,
         policy = ConfigurationPolicy.REQUIRE)
-@Properties({ @Property(name = "dataSource.target"), @Property(name = "sqlTemplates.target") })
+@Properties({ @Property(name = ResourceConstants.PROP_DATASOURCE_TARGET),
+        @Property(name = ResourceConstants.PROP_SQLTEMPLATES_TARGET) })
 @Service
 public class ResourceComponent implements ResourceService {
 
