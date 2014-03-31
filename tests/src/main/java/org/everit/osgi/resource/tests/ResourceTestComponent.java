@@ -40,11 +40,12 @@ import com.mysema.query.sql.SQLTemplates;
 /**
  * Test component for testing {@link ResourceService} methods.
  */
-@Component(name = "ResourceTest", immediate = true, metatype = true, policy = ConfigurationPolicy.REQUIRE)
+@Component(name = "ResourceTest", immediate = true, policy = ConfigurationPolicy.OPTIONAL, configurationFactory = false)
 @Service(value = ResourceTestComponent.class)
 @Properties({ @Property(name = "eosgi.testEngine", value = "junit4"),
         @Property(name = "eosgi.testId", value = "resourceTest"),
         @Property(name = "dataSource.target") })
+@TestDuringDevelopment
 public class ResourceTestComponent {
     /**
      * Fake, non existing resourceId to be able to test deleteResource with wrong parameter.
