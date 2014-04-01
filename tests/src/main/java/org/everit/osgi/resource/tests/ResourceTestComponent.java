@@ -22,7 +22,6 @@ import java.sql.SQLException;
 import javax.sql.DataSource;
 
 import org.apache.felix.scr.annotations.Component;
-import org.apache.felix.scr.annotations.ConfigurationPolicy;
 import org.apache.felix.scr.annotations.Properties;
 import org.apache.felix.scr.annotations.Property;
 import org.apache.felix.scr.annotations.Reference;
@@ -40,7 +39,7 @@ import com.mysema.query.sql.SQLTemplates;
 /**
  * Test component for testing {@link ResourceService} methods.
  */
-@Component(name = "ResourceTest", immediate = true, policy = ConfigurationPolicy.OPTIONAL, configurationFactory = false)
+@Component(name = "ResourceTest", immediate = true)
 @Service(value = ResourceTestComponent.class)
 @Properties({ @Property(name = "eosgi.testEngine", value = "junit4"),
         @Property(name = "eosgi.testId", value = "resourceTest"),
