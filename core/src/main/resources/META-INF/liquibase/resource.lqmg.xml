@@ -18,10 +18,16 @@
 
 -->
 <lqmg xmlns="http://everit.org/lqmg" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" defaultPackage="org.everit.osgi.resource.schema.qdsl">
-	<namingRules>
-		<classNameRule>
-			<entity>res_resource</entity>
-			<class>Resource</class>
-		</classNameRule>
-	</namingRules>
+  <namingRules>
+    <classNameRule>
+      <entity>res_resource</entity>
+      <class>Resource</class>
+      <propertyMappings>
+        <primaryKey>
+          <name>pk_res_resource</name>
+          <property>resourcePk</property>
+        </primaryKey>
+      </propertyMappings>
+    </classNameRule>
+  </namingRules>
 </lqmg>

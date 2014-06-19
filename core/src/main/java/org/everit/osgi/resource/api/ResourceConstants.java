@@ -18,9 +18,9 @@ package org.everit.osgi.resource.api;
 
 public final class ResourceConstants {
 
-    public static final String COMPONENT_NAME_RESOURCE = "org.everit.osgi.resource.Resource";
     public static final String PROP_DATASOURCE_TARGET = "dataSource.target";
     public static final String PROP_SQLTEMPLATES_TARGET = "sqlTemplates.target";
+    public static final String SERVICE_FACTORYPID_RESOURCE = "org.everit.osgi.resource.Resource";
 
     private ResourceConstants() {
     }

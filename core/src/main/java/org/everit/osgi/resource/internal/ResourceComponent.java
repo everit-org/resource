@@ -40,7 +40,7 @@ import com.mysema.query.sql.dml.SQLInsertClause;
 /**
  * Implementation for {@link ResourceService}.
  */
-@Component(name = ResourceConstants.COMPONENT_NAME_RESOURCE, metatype = true, configurationFactory = true,
+@Component(name = ResourceConstants.SERVICE_FACTORYPID_RESOURCE, metatype = true, configurationFactory = true,
         policy = ConfigurationPolicy.REQUIRE)
 @Properties({ @Property(name = ResourceConstants.PROP_DATASOURCE_TARGET),
         @Property(name = ResourceConstants.PROP_SQLTEMPLATES_TARGET) })

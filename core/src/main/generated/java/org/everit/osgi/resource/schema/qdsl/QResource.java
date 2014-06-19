@@ -37,14 +37,20 @@ public class QResource extends com.mysema.query.sql.RelationalPathBase<QResource
 
     private static final long serialVersionUID = -225061993;
 
-    public static final QResource resResource = new QResource("res_resource");
+    public static final QResource resource = new QResource("res_resource");
+
+    public class PrimaryKeys {
+
+        public final com.mysema.query.sql.PrimaryKey<QResource> resourcePk = createPrimaryKey(resourceId);
+
+    }
 
     public final NumberPath<Long> resourceId = createNumber("resourceId", Long.class);
 
-    public final com.mysema.query.sql.PrimaryKey<QResource> resResourcePk = createPrimaryKey(resourceId);
+    public final PrimaryKeys pk = new PrimaryKeys();
 
     public QResource(String variable) {
-        super(QResource.class, forVariable(variable), null, "res_resource");
+        super(QResource.class, forVariable(variable), "org.everit.osgi.resource", "res_resource");
         addMetadata();
     }
 
@@ -54,12 +60,12 @@ public class QResource extends com.mysema.query.sql.RelationalPathBase<QResource
     }
 
     public QResource(Path<? extends QResource> path) {
-        super(path.getType(), path.getMetadata(), null, "res_resource");
+        super(path.getType(), path.getMetadata(), "org.everit.osgi.resource", "res_resource");
         addMetadata();
     }
 
     public QResource(PathMetadata<?> metadata) {
-        super(QResource.class, metadata, null, "res_resource");
+        super(QResource.class, metadata, "org.everit.osgi.resource", "res_resource");
         addMetadata();
     }
 
