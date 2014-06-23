@@ -50,10 +50,7 @@ public class ResourceTestComponent {
      * Fake, non existing resourceId to be able to test deleteResource with wrong parameter.
      */
     private static final Long FAKE_ID = 2000L;
-    /**
-     * Zero number.
-     */
-    private static final long ZERO = 0;
+
     /**
      * {@link DataSource}.
      */
@@ -80,7 +77,7 @@ public class ResourceTestComponent {
 
     /**
      * Counts the resource records in the database.
-     * 
+     *
      * @return Number of the records.
      */
     private Long countResources() {
@@ -106,10 +103,9 @@ public class ResourceTestComponent {
         Long count = countResources();
         Long expectedCount = firstCount + 1;
         Assert.assertEquals(expectedCount, count);
-        long numOfDeleted = resourceService.deleteResource(FAKE_ID);
+        Assert.assertFalse(resourceService.deleteResource(FAKE_ID));
         count = countResources();
-        Assert.assertEquals(ZERO, numOfDeleted);
-        resourceService.deleteResource(resourceId);
+        Assert.assertTrue(resourceService.deleteResource(resourceId));
         count = countResources();
         Assert.assertEquals(firstCount, count);
     }

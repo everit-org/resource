@@ -22,18 +22,18 @@ package org.everit.osgi.resource.api;
 public interface ResourceService {
     /**
      * Creates a new resource object.
-     * 
+     *
      * @return The id of the new resource.
      */
     long createResource();
 
     /**
      * Deletes a resource object from the database.
-     * 
+     *
      * @param resourceId
      *            The id of the resource object to be deleted.
-     * @return The number of deleted records.
+     * @return true if a record was truly deleted, false if it did not even exist.
      */
-    long deleteResource(long resourceId);
+    boolean deleteResource(long resourceId);
 
 }

@@ -19,21 +19,19 @@ package org.everit.osgi.resource.internal;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import javax.sql.DataSource;
-
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.ConfigurationPolicy;
 import org.apache.felix.scr.annotations.Properties;
 import org.apache.felix.scr.annotations.Property;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
+import org.everit.osgi.querydsl.support.QuerydslCallable;
+import org.everit.osgi.querydsl.support.QuerydslSupport;
 import org.everit.osgi.resource.api.ResourceConstants;
-import org.everit.osgi.resource.api.ResourceCreationException;
-import org.everit.osgi.resource.api.ResourceDeletionException;
 import org.everit.osgi.resource.api.ResourceService;
 import org.everit.osgi.resource.schema.qdsl.QResource;
 
-import com.mysema.query.sql.SQLTemplates;
+import com.mysema.query.sql.Configuration;
 import com.mysema.query.sql.dml.SQLDeleteClause;
 import com.mysema.query.sql.dml.SQLInsertClause;
 
@@ -42,50 +40,41 @@ import com.mysema.query.sql.dml.SQLInsertClause;
  */
 @Component(name = ResourceConstants.SERVICE_FACTORYPID_RESOURCE, metatype = true, configurationFactory = true,
         policy = ConfigurationPolicy.REQUIRE)
-@Properties({ @Property(name = ResourceConstants.PROP_DATASOURCE_TARGET),
-        @Property(name = ResourceConstants.PROP_SQLTEMPLATES_TARGET) })
+@Properties({ @Property(name = ResourceConstants.PROP_QUERYDSL_SUPPORT_TARGET) })
 @Service
 public class ResourceComponent implements ResourceService {
 
-    /**
-     * {@link DataSource}.
-     */
-    @Reference
-    private DataSource dataSource;
+    @Reference(bind = "bindQuerydslSupport")
+    private QuerydslSupport querydslSupport;
 
-    /**
-     * {@link SQLTemplates}.
-     */
-    @Reference
-    private SQLTemplates sqlTemplates;
-
-    public void bindDataSource(final DataSource dataSource) {
-        this.dataSource = dataSource;
+    public void bindQuerydslSupport(QuerydslSupport querydslSupport) {
+        this.querydslSupport = querydslSupport;
     }
 
     @Override
     public long createResource() {
-        Long id = null;
-        try (Connection connection = dataSource.getConnection()) {
-            QResource qResource = new QResource("qResource");
-            SQLInsertClause insertClause = new SQLInsertClause(connection, sqlTemplates, qResource);
-            id = insertClause.executeWithKey(qResource.resourceId);
-        } catch (SQLException e) {
-            throw new ResourceCreationException("Could not create resource", e);
-        }
-        return id;
+        return querydslSupport.execute(new QuerydslCallable<Long>() {
+
+            @Override
+            public Long call(Connection connection, Configuration configuration) throws SQLException {
+                QResource qResource = new QResource("qResource");
+                SQLInsertClause insertClause = new SQLInsertClause(connection, configuration, qResource);
+                return insertClause.executeWithKey(qResource.resourceId);
+            }
+        });
     }
 
     @Override
-    public long deleteResource(final long resourceId) {
-        long deletedRecords = 0;
-        try (Connection connection = dataSource.getConnection()) {
-            QResource qResource = new QResource("qResource");
-            SQLDeleteClause deleteClause = new SQLDeleteClause(connection, sqlTemplates, qResource);
-            deletedRecords = deleteClause.where(qResource.resourceId.eq(resourceId)).execute();
-        } catch (SQLException e) {
-            throw new ResourceDeletionException("Could not delete resource with id " + resourceId, e);
-        }
-        return deletedRecords;
+    public boolean deleteResource(final long resourceId) {
+        return querydslSupport.execute(new QuerydslCallable<Boolean>() {
+
+            @Override
+            public Boolean call(Connection connection, Configuration configuration) throws SQLException {
+                QResource qResource = new QResource("qResource");
+                SQLDeleteClause deleteClause = new SQLDeleteClause(connection, configuration, qResource);
+                long deletedRecordNum = deleteClause.where(qResource.resourceId.eq(resourceId)).execute();
+                return deletedRecordNum > 0;
+            }
+        });
     }
 }
