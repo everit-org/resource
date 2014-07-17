@@ -1,4 +1,4 @@
-resource
-========
+resource-ri
+===========
 
-Resource table in the datamodel
+The reference implementation of resource API. This is the Resource table in the datamodel.

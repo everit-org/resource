@@ -1,27 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    This file is part of Everit - Resource RI.
+    This file is part of Everit - Resource RI Schema.
 
-    Everit - Resource RI is free software: you can redistribute it and/or modify
+    Everit - Resource RI Schema is free software: you can redistribute it and/or modify
     it under the terms of the GNU Lesser General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    Everit - Resource RI is distributed in the hope that it will be useful,
+    Everit - Resource RI Schema is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU Lesser General Public License for more details.
 
     You should have received a copy of the GNU Lesser General Public License
-    along with Everit - Resource RI.  If not, see <http://www.gnu.org/licenses/>.
+    along with Everit - Resource RI Schema.  If not, see <http://www.gnu.org/licenses/>.
 
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
-
   <parent>
     <groupId>org.everit.config</groupId>
     <artifactId>org.everit.config.oss</artifactId>
@@ -29,18 +28,18 @@
   </parent>
 
   <groupId>org.everit.osgi</groupId>
-  <artifactId>org.everit.osgi.resource.ri</artifactId>
+  <artifactId>org.everit.osgi.resource.ri.schema</artifactId>
   <version>1.0.0-SNAPSHOT</version>
 
   <packaging>bundle</packaging>
 
-  <name>Everit - Resource RI</name>
-  <description>Component that is designed for connecting different entities.</description>
+  <name>Everit - Resource RI Schema</name>
+  <description>The database schema of the Resource RI component.</description>
 
   <properties>
     <projectpath>resource-ri</projectpath>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
+    <maven.compiler.source>1.6</maven.compiler.source>
+    <maven.compiler.target>1.6</maven.compiler.target>
   </properties>
 
   <scm>
@@ -89,25 +88,45 @@
         <configuration>
           <instructions>
             <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
-            <Export-Package>
-              org.everit.osgi.resource.ri
-            </Export-Package>
             <Import-Package>
               *
             </Import-Package>
+            <Export-Package>
+              org.everit.osgi.resource.ri.schema.qdsl
+            </Export-Package>
+            <Require-Capability>
+            </Require-Capability>
+            <Provide-Capability>
+              liquibase.schema;name=org.everit.osgi.resource.ri;resource=/META-INF/liquibase/resource.ri.liquibase.xml;lqmg.config.resource=/META-INF/liquibase/resource.ri.lqmg.xml
+            </Provide-Capability>
           </instructions>
         </configuration>
       </plugin>
       <plugin>
-        <groupId>org.apache.felix</groupId>
-        <artifactId>maven-scr-plugin</artifactId>
-        <version>1.17.0</version>
+        <groupId>org.everit.osgi.dev</groupId>
+        <artifactId>lqmg-maven-plugin</artifactId>
+        <version>3.0.0</version>
+        <configuration>
+          <defaultSchema>org.everit.osgi.resource.ri</defaultSchema>
+          <capability>org.everit.osgi.resource.ri</capability>
+          <packages>org.everit.osgi.resource.ri.schema.qdsl</packages>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <version>1.8</version>
         <executions>
           <execution>
-            <id>generate-scr-scrdescriptor</id>
+            <phase>generate-sources</phase>
             <goals>
-              <goal>scr</goal>
+              <goal>add-source</goal>
             </goals>
+            <configuration>
+              <sources>
+                <source>src/main/generated/java/</source>
+              </sources>
+            </configuration>
           </execution>
         </executions>
       </plugin>
@@ -115,20 +134,26 @@
   </build>
 
   <dependencies>
+    <!-- QueryDSL and required dependency -->
     <dependency>
-      <groupId>org.everit.osgi</groupId>
-      <artifactId>org.everit.osgi.resource.api</artifactId>
-      <version>2.0.0</version>
+      <groupId>com.mysema.querydsl</groupId>
+      <artifactId>querydsl-sql</artifactId>
+      <version>3.4.1</version>
     </dependency>
     <dependency>
-      <groupId>org.everit.osgi</groupId>
-      <artifactId>org.everit.osgi.resource.ri.schema</artifactId>
-      <version>1.0.0-SNAPSHOT</version>
+      <groupId>org.apache.servicemix.bundles</groupId>
+      <artifactId>org.apache.servicemix.bundles.jsr305</artifactId>
+      <version>2.0.0_1</version>
     </dependency>
     <dependency>
-      <groupId>org.everit.osgi</groupId>
-      <artifactId>org.everit.osgi.querydsl.support</artifactId>
-      <version>1.0.0</version>
+      <groupId>org.apache.servicemix.bundles</groupId>
+      <artifactId>org.apache.servicemix.bundles.javax-inject</artifactId>
+      <version>1_2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-simple</artifactId>
+      <version>1.7.7</version>
     </dependency>
   </dependencies>
 
