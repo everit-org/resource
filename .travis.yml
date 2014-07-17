@@ -1,6 +1,6 @@
 language: java
 jdk:
-  - openjdk7
+  - oraclejdk8
 env:
   - checkstyle.failOnViolation=false
 script: mvn integration-test
