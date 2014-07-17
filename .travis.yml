@@ -2,6 +2,6 @@ language: java
 jdk:
   - oraclejdk8
 env:
-  - checkstyle.failOnViolation=false
+  - "checkstyle.failOnViolation"="false"
 script: mvn integration-test
 install: true
