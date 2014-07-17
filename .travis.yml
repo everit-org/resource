@@ -1,5 +1,7 @@
 language: java
 jdk:
   - openjdk7
+env:
+  - checkstyle.failOnViolation=false
 script: mvn integration-test
 install: true
