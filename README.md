@@ -1,4 +1,8 @@
 resource-ri
 ===========
 
-The reference implementation of resource API. This is the Resource table in the datamodel.
+The module is the reference implementation of [resource-api][1]. The
+implementation is based on the concept of [Modularized Persistence][2].
+
+[1]: https://github.com/everit-org/resource-api
+[2]: http://bzsoldos.wordpress.com/2014/06/18/modularized-persistence
