@@ -1,20 +1,19 @@
-/**
- * This file is part of Everit - Resource RI Schema.
+/*
+ * Copyright (C) 2011 Everit Kft. (http://www.everit.biz)
  *
- * Everit - Resource RI Schema is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * Everit - Resource RI Schema is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
+ *         http://www.apache.org/licenses/LICENSE-2.0
  *
- * You should have received a copy of the GNU Lesser General Public License
- * along with Everit - Resource RI Schema.  If not, see <http://www.gnu.org/licenses/>.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
-package org.everit.osgi.resource.ri.schema.qdsl;
+package org.everit.resource.ri.schema.qdsl;
 
 import static com.mysema.query.types.PathMetadataFactory.*;
 
@@ -35,7 +34,7 @@ import com.mysema.query.sql.ColumnMetadata;
 @Generated("com.mysema.query.sql.codegen.MetaDataSerializer")
 public class QResource extends com.mysema.query.sql.RelationalPathBase<QResource> {
 
-    private static final long serialVersionUID = 810406950;
+    private static final long serialVersionUID = -2073814280;
 
     public static final QResource resource = new QResource("res_resource");
 
@@ -50,7 +49,7 @@ public class QResource extends com.mysema.query.sql.RelationalPathBase<QResource
     public final PrimaryKeys pk = new PrimaryKeys();
 
     public QResource(String variable) {
-        super(QResource.class, forVariable(variable), "org.everit.osgi.resource.ri", "res_resource");
+        super(QResource.class, forVariable(variable), "org.everit.resource.ri", "res_resource");
         addMetadata();
     }
 
@@ -60,12 +59,12 @@ public class QResource extends com.mysema.query.sql.RelationalPathBase<QResource
     }
 
     public QResource(Path<? extends QResource> path) {
-        super(path.getType(), path.getMetadata(), "org.everit.osgi.resource.ri", "res_resource");
+        super(path.getType(), path.getMetadata(), "org.everit.resource.ri", "res_resource");
         addMetadata();
     }
 
     public QResource(PathMetadata<?> metadata) {
-        super(QResource.class, metadata, "org.everit.osgi.resource.ri", "res_resource");
+        super(QResource.class, metadata, "org.everit.resource.ri", "res_resource");
         addMetadata();
     }
 
