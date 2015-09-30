@@ -17,7 +17,6 @@ package org.everit.resource.ri;
 
 import java.util.Objects;
 
-import org.everit.persistence.querydsl.support.QuerydslSupport;
 import org.everit.resource.ResourceService;
 import org.everit.resource.ri.schema.qdsl.QResource;
 
@@ -29,7 +28,7 @@ import com.mysema.query.sql.dml.SQLInsertClause;
  */
 public class ResourceServiceImpl implements ResourceService {
 
-  private QuerydslSupport querydslSupport;
+  private final QuerydslSupport querydslSupport;
 
   /**
    * Constructor.

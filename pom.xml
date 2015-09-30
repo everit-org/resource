@@ -33,7 +33,7 @@
   <packaging>pom</packaging>
 
   <name>Everit - Resource RI parent</name>
-  <description>Resource RI Component parent</description>
+  <description>Resource RI parent</description>
 
   <properties>
     <maven.site.skip>true</maven.site.skip>
