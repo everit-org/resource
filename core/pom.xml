@@ -29,7 +29,7 @@
 
   <groupId>org.everit.resource</groupId>
   <artifactId>org.everit.resource.ri</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>1.0.0</version>
 
   <packaging>bundle</packaging>
 
@@ -104,7 +104,7 @@
     <dependency>
       <groupId>org.everit.resource</groupId>
       <artifactId>org.everit.resource.ri.schema.qdsl</artifactId>
-      <version>1.0.0-SNAPSHOT</version>
+      <version>1.0.0</version>
     </dependency>
     <dependency>
       <groupId>org.everit.persistence</groupId>
