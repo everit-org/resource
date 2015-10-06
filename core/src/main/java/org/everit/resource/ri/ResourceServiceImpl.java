@@ -17,6 +17,7 @@ package org.everit.resource.ri;
 
 import java.util.Objects;
 
+import org.everit.persistence.querydsl.support.QuerydslSupport;
 import org.everit.resource.ResourceService;
 import org.everit.resource.ri.schema.qdsl.QResource;
 
