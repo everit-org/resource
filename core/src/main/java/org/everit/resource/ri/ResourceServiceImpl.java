@@ -21,8 +21,8 @@ import org.everit.persistence.querydsl.support.QuerydslSupport;
 import org.everit.resource.ResourceService;
 import org.everit.resource.ri.schema.qdsl.QResource;
 
-import com.mysema.query.sql.dml.SQLDeleteClause;
-import com.mysema.query.sql.dml.SQLInsertClause;
+import com.querydsl.sql.dml.SQLDeleteClause;
+import com.querydsl.sql.dml.SQLInsertClause;
 
 /**
  * Implementation of {@link ResourceService}.

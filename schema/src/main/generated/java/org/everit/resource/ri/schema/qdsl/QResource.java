@@ -15,15 +15,16 @@
  */
 package org.everit.resource.ri.schema.qdsl;
 
-import static com.mysema.query.types.PathMetadataFactory.*;
+import static com.querydsl.core.types.PathMetadataFactory.*;
 
-import com.mysema.query.types.path.*;
+import com.querydsl.core.types.dsl.*;
 
-import com.mysema.query.types.PathMetadata;
+import com.querydsl.core.types.PathMetadata;
 import javax.annotation.Generated;
-import com.mysema.query.types.Path;
+import com.querydsl.core.types.Path;
 
-import com.mysema.query.sql.ColumnMetadata;
+import com.querydsl.sql.ColumnMetadata;
+import java.sql.Types;
 
 
 
@@ -31,8 +32,8 @@ import com.mysema.query.sql.ColumnMetadata;
 /**
  * QResource is a Querydsl query type for QResource
  */
-@Generated("com.mysema.query.sql.codegen.MetaDataSerializer")
-public class QResource extends com.mysema.query.sql.RelationalPathBase<QResource> {
+@Generated("com.querydsl.sql.codegen.MetaDataSerializer")
+public class QResource extends com.querydsl.sql.RelationalPathBase<QResource> {
 
     private static final long serialVersionUID = -2073814280;
 
@@ -40,7 +41,7 @@ public class QResource extends com.mysema.query.sql.RelationalPathBase<QResource
 
     public class PrimaryKeys {
 
-        public final com.mysema.query.sql.PrimaryKey<QResource> resourcePk = createPrimaryKey(resourceId);
+        public final com.querydsl.sql.PrimaryKey<QResource> resourcePk = createPrimaryKey(resourceId);
 
     }
 
@@ -63,13 +64,13 @@ public class QResource extends com.mysema.query.sql.RelationalPathBase<QResource
         addMetadata();
     }
 
-    public QResource(PathMetadata<?> metadata) {
+    public QResource(PathMetadata metadata) {
         super(QResource.class, metadata, "org.everit.resource.ri", "res_resource");
         addMetadata();
     }
 
     public void addMetadata() {
-        addMetadata(resourceId, ColumnMetadata.named("resource_id").ofType(-5).withSize(19).notNull());
+        addMetadata(resourceId, ColumnMetadata.named("resource_id").withIndex(1).ofType(Types.BIGINT).withSize(19).notNull());
     }
 
 }
